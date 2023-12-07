@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  font-family: "Mulish", sans-serif;
+  font-family: "Noto Sans Myanmar", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  width: 100vw;
+  background: #f9e596b0;
+  padding: 0;
+  margin: 0;
+  padding: 0 4rem;
+  font-size: 1.3rem;
+}
+
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoImg {
+  width: 7rem;
+  margin: 1rem 2rem;
+}
+
+#menu {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 35rem;
+  align-self: center;
+  list-style-type: none;
+}
+
+li a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #992b26;
+  text-decoration: underline;
+  text-decoration-color: #992b26;
+}
+
+ul li a.active {
+  color: #992b26;
+  text-decoration: underline;
+  text-decoration-color: #992b26;
+}
+
+.svg-inline--fa {
+  height: 2rem;
+}
+
+.menuIcon {
+  cursor: pointer;
+  margin-right: 3rem;
+}
+
+/* .hidden {
+  display: none;
+} */
+
+.cookieContainer {
+  width: 50vw;
+  height: 100%;
+  margin-top: 0.7rem;
+  margin-left: 4rem;
+  padding: 1.5rem;
+  display: flex;
+}
+
+.cookie {
+  height: 31.5rem;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 2rem;
+  padding-left: 3.1rem;
+}
+button {
+  width: 7rem;
+  height: 2rem;
+  font-size: 1.1rem;
+  border-radius: 0.6rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+button:nth-child(1) {
+  background: #00b4d8;
+  border: #00b4d8;
+}
+button:nth-child(2) {
+  background: #ef476f;
+  border: #ef476f;
+}
+button:nth-child(3) {
+  background: #06d6a0;
+  border: #06d6a0;
+}
+.counter {
+  width: 21.5vw;
+  height: 3rem;
+  border: 1px solid #6e4341;
+  border-radius: 0.6rem;
+  padding-left: 1rem;
+  margin-top: 1.3rem;
+  margin-left: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.3rem;
+}
+span {
+  padding: 1rem;
+}
+
+footer {
+  width: 100%;
+  height: 6rem;
+  background: #6e4341;
+  color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-family: "Mulish";
+}

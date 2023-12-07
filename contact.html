@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./contact.css" />
+    <script src="./app.js" defer></script>
+    <script
+      data-search-pseudo-elements
+      src="https://kit.fontawesome.com/f737751420.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Mulish:wght@200&family=Noto+Sans+Myanmar:wght@500;600&family=Poppins:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Cookies Clicker</title>
+  </head>
+  <body>
+    <header>
+      <nav id="navbar" class="navbar">
+        <div class="navContainer">
+          <div class="logo">
+            <a href="/">
+              <img class="logoImg" src="./image/logo.png" alt="logo"
+            /></a>
+          </div>
+          <ul id="menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+          <div class="menuIcon">
+            <i id="bar" class="fa-solid fa-bars"></i>
+            <!-- <i id="close" class="fa-sharp fa-solid fa-xmark"></i> -->
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <form id="form" action="" method="get" class="logIn">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="john@gmail.com"
+          required
+        />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          required
+        />
+        <label for="message">Message:</label>
+        <textarea name="text" id="textArea" cols="30" rows="10"></textarea>
+        <button class="submit" id="btn" type="submit">Submit</button>
+      </form>
+    </main>
+    <footer>
+      <p>&copy;Smarty-cookies.ltd 2023</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin: 5.5rem;
+  gap: 20px;
+}
+
+input,
+textarea {
+  width: 40%;
+  height: 3rem;
+  border-radius: 0.6rem;
+  border: 1px solid #9e9999;
+  padding: 1rem;
+}
+
+textarea {
+  height: 10rem;
+}
+
+.submit {
+  width: 8rem;
+  height: 40px;
+  border-radius: 0.6rem;
+  border: 1px solid #9e9999;
+  background: #a6c6eb;
+}
