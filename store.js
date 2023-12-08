@@ -1,13 +1,3 @@
-let counterDisplay = document.querySelector("#counter");
-let startCounter = document.querySelector("#start");
-let stopCounter = document.querySelector("#stop");
-let resetCounter = document.querySelector("#reset");
-let handleOnImg = document.querySelector(".cookieImg");
-
-let count = 0;
-let interval;
-let isCounting = false;
-
 let initialData = {
   NaNa: [
     {
@@ -53,36 +43,6 @@ let initialData = {
   ],
 };
 
-const getLocalStore = () => {
-  const localData = localStorage.getItem("count");
-  count = JSON.parse(localData);
-
-  counterDisplay.textContent = count;
-};
-getLocalStore();
-
-const start = () => {
-  if (isCounting) {
-    return;
-  }
-  count++;
-  interval = setInterval(() => {
-    count++;
-    updateCounter();
-  }, 100);
-  isCounting = true;
-};
-
-const stop = () => {
-  clearInterval(interval);
-  isCounting = false;
-  localStorage.setItem("count", JSON.stringify(count));
-};
-
-const updateCounter = () => {
-  counterDisplay.innerHTML = `${count}`;
-};
-
 const getStoreData = () => {
   const storedData = localStorage.getItem("storeData");
 
@@ -120,12 +80,8 @@ const displayStoreItems = (data) => {
       itemElement.innerHTML = `
         <div class="item">${category} </div>
         <div class="item">£${item.price} </div>
-        <div class="item" data-category="${category}" data-item="${items.indexOf(
-        item
-      )}">${item.quantity} </div>
-        <button class="buyBtn"  data-category="${category}" data-item="${items.indexOf(
-        item
-      )}">${item.button} </button>
+        <div class="item">${item.quantity} </div>
+        <button class="buyBtn">${item.button} </button>
         `;
       categoryContainer.appendChild(itemElement);
     });
@@ -133,26 +89,32 @@ const displayStoreItems = (data) => {
   }
 };
 
+const handleBtnsClick = (e) => {
+  const category = e.tatget
+    .closest(".categoryContainer")
+    .querySelector(".item")
+    .textContent.trim();
+  const itemIndex = Array.from(
+    e.target
+      .closest(".categoryContainer")
+      .querySelectorAll(".buyBtn")
+      .indexOf(e.target)
+  );
+
+  const storeData = getStoreData();
+  storeData[category][itemIndex].quantity++;
+  localStorage.setItem("storeData", JSON.stringify(storeData));
+  displayStoreItems(storeData);
+
+  updateCounter();
+};
+
 const buyButtons = document.querySelectorAll(".buyBtn");
 buyButtons.forEach((button) => {
-  button.addEventListener("click", handleBtnClick);
-  console.log(handleBtnClick());
+  button.addEventListener("click", handleBtnsClick);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   const storeData = getStoreData();
   displayStoreItems(storeData);
-  getStoreData();
-});
-
-startCounter.addEventListener("click", start);
-
-handleOnImg.addEventListener("click", start);
-
-stopCounter.addEventListener("click", stop);
-
-resetCounter.addEventListener("click", () => {
-  count = 0;
-  updateCounter();
-  isCounting = false;
 });

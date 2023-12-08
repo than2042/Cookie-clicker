@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
-    <script src="./app.js" defer></script>
+    <script src="./app.js" type="module" defer></script>
+    <!-- <script src="./store.js" type="module" defer></script> -->
     <script
       data-search-pseudo-elements
       src="https://kit.fontawesome.com/f737751420.js"
@@ -41,8 +42,8 @@
     </header>
     <main>
       <div class="cookieContainer">
-        <div>
-          <img class="cookie" src="./image/cookie.png" alt="cookie" />
+        <div id="cookie">
+          <img class="cookieImg" src="./image/cookie.png" alt="cookie" />
           <div class="btnContainer">
             <button id="start">Start</button>
             <button id="stop">Stop</button>
@@ -50,13 +51,7 @@
           </div>
           <p class="counter">Total Cookies: <span id="counter"></span></p>
         </div>
-        <div>
-          <div>
-            <p>Store</p>
-            <p>Price</p>
-            <p>Quantity</p>
-          </div>
-        </div>
+        <div id="cookieStore"></div>
       </div>
     </main>
     <footer>
