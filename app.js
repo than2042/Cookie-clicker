@@ -4,36 +4,38 @@ let stopCounter = document.querySelector("#stop");
 let resetCounter = document.querySelector("#reset");
 let handleOnImg = document.querySelector(".cookieImg");
 
+// initial value of count is 0
 let count = 0;
 let interval;
 let isCounting = false;
 
+// declare initial data
 let initialData = {
   NaNa: [
     {
       price: 0.2,
-      quantity: 1,
+      quantity: 1000,
       button: "Buy",
     },
   ],
   Oven: [
     {
       price: 1,
-      quantity: 10,
+      quantity: 200,
       button: "Buy",
     },
   ],
   Factory: [
     {
       price: 20,
-      quantity: 100,
+      quantity: 300,
       button: "Buy",
     },
   ],
   Outlet: [
     {
       price: 10,
-      quantity: 50,
+      quantity: 600,
       button: "Buy",
     },
   ],
@@ -44,7 +46,7 @@ let initialData = {
       button: "Buy",
     },
   ],
-  "My Cookies": [
+  Mine: [
     {
       price: 1,
       quantity: 10,
@@ -53,14 +55,17 @@ let initialData = {
   ],
 };
 
-const getLocalStore = () => {
-  const localData = localStorage.getItem("count");
-  count = JSON.parse(localData);
+// get local data from localStorage
+// const getLocalStore = () => {
+//   const localData = localStorage.getItem("count");
+//   count = JSON.parse(localData);
 
-  counterDisplay.textContent = count;
-};
-getLocalStore();
+//   // display local data
+//   counterDisplay.textContent = count;
+// };
+// getLocalStore();
 
+// handle start counting
 const start = () => {
   if (isCounting) {
     return;
@@ -73,19 +78,23 @@ const start = () => {
   isCounting = true;
 };
 
+// handle stop counting
 const stop = () => {
   clearInterval(interval);
   isCounting = false;
   localStorage.setItem("count", JSON.stringify(count));
 };
 
+// updating counter
 const updateCounter = () => {
   counterDisplay.innerHTML = `${count}`;
 };
 
+// get storeData
 const getStoreData = () => {
   const storedData = localStorage.getItem("storeData");
 
+  // if storedData exit turn it to array
   if (storedData) {
     return JSON.parse(storedData);
   }
@@ -96,6 +105,7 @@ const getStoreData = () => {
   return initialData;
 };
 
+// display stored create html elements of store header
 const displayStoreItems = (data) => {
   const itemsContainer = document.getElementById("cookieStore");
   const headerRow = document.createElement("div");
@@ -108,24 +118,21 @@ const displayStoreItems = (data) => {
      `;
   itemsContainer.appendChild(headerRow);
 
+  // loop category in data and create html elements
   for (const category in data) {
     const items = data[category];
 
     const categoryContainer = document.createElement("div");
     categoryContainer.classList.add("categoryContainer");
 
-    items.map((item) => {
+    items.map((item, index) => {
       const itemElement = document.createElement("div");
       itemElement.classList.add("itemElement");
       itemElement.innerHTML = `
         <div class="item">${category} </div>
         <div class="item">£${item.price} </div>
-        <div class="item" data-category="${category}" data-item="${items.indexOf(
-        item
-      )}">${item.quantity} </div>
-        <button class="buyBtn"  data-category="${category}" data-item="${items.indexOf(
-        item
-      )}">${item.button} </button>
+        <div class="item" data-category="${category}" data-item="${index}" id="quantity-${category}-${index}">${item.quantity} </div>
+        <button class="buyBtn"  data-category="${category}" data-item="${index}">${item.button} </button>
         `;
       categoryContainer.appendChild(itemElement);
     });
@@ -133,18 +140,79 @@ const displayStoreItems = (data) => {
   }
 };
 
-const buyButtons = document.querySelectorAll(".buyBtn");
-buyButtons.forEach((button) => {
-  button.addEventListener("click", handleBtnClick);
-  console.log(handleBtnClick());
+// handle click to decrement and increment quantity from data set and count
+const handleClick = document.getElementById("cookieStore");
+
+handleClick.addEventListener("click", (e) => {
+  const target = e.target;
+
+  if (target.classList.contains("buyBtn")) {
+    const category = target.dataset.category;
+    const itemIndex = target.dataset.item;
+
+    const storeData = getStoreData();
+
+    const selectedItem = storeData[category][itemIndex];
+    console.log(selectedItem);
+
+    if (selectedItem.quantity > 0) {
+      selectedItem.quantity--; // decrement the quantity of selected item
+
+      const myCookieItem = storeData["Mine"][0]; // get the correct items
+      myCookieItem.quantity++; // increment the quantity
+
+      count--;
+      updateCounter();
+
+      localStorage.setItem("storeData", JSON.stringify(storeData));
+      localStorage.setItem("count", JSON.stringify(count));
+
+      // update and display of selected item
+      updateQuantityDisplay(category, itemIndex, selectedItem.quantity);
+
+      // update display quantity of Mine
+      updateMyCookies();
+    } else {
+      console.log("Out of stock");
+    }
+  }
 });
 
+// display updated quantity
+const updateQuantityDisplay = (category, itemIndex, quantity) => {
+  const quantityElement = document.getElementById(
+    `quantity-${category}-${itemIndex}`
+  );
+
+  if (quantityElement) {
+    quantityElement.textContent = `${quantity}`;
+
+    if (category === "My Cookies") {
+      updateMyCookies();
+    }
+  }
+};
+
+// display updated quantity of Mine after click buy form other store
+const updateMyCookies = () => {
+  const myCookieQuantity = document.getElementById("quantity-Mine-0");
+
+  if (myCookieQuantity) {
+    const myCookieItem = getStoreData()["Mine"][0];
+    myCookieQuantity.innerHTML = `${myCookieItem.quantity}`;
+  }
+};
+
+// loading content callback
 document.addEventListener("DOMContentLoaded", () => {
   const storeData = getStoreData();
   displayStoreItems(storeData);
-  getStoreData();
+  const localCount = localStorage.getItem("count");
+  count = localCount ? JSON.parse(localCount) : 0;
+  document.getElementById("counter").textContent = count;
 });
 
+// callback start, stop, and reset function when the button click
 startCounter.addEventListener("click", start);
 
 handleOnImg.addEventListener("click", start);
@@ -155,4 +223,5 @@ resetCounter.addEventListener("click", () => {
   count = 0;
   updateCounter();
   isCounting = false;
+  clearInterval(interval);
 });
