@@ -88,6 +88,29 @@ const stop = () => {
 // updating counter
 const updateCounter = () => {
   counterDisplay.innerHTML = `${count}`;
+
+  // when count is 0 it showed message
+  if (count <= 0) {
+    const message = document.querySelector(".counter");
+    message.classList.add("message");
+    message.innerHTML = "Oop, Not enough fund!!";
+  }
+
+  // add animation every count to 20
+
+  setTimeout(() => {
+    if (count % 20 === 0) {
+      const handleJump = document.querySelector(".cookieImg");
+      handleJump.classList.add("jumping");
+      handleJump.addEventListener(
+        "animationend",
+        () => {
+          handleJump.classList.remove("jumping");
+        },
+        { once: true }
+      );
+    }
+  }, 500);
 };
 
 // get storeData
