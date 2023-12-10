@@ -55,17 +55,6 @@ let initialData = {
   ],
 };
 
-// get local data from localStorage
-// const getLocalStore = () => {
-//   const localData = localStorage.getItem("count");
-//   count = JSON.parse(localData);
-
-//   // display local data
-//   counterDisplay.textContent = count;
-// };
-// getLocalStore();
-
-// handle start counting
 const start = () => {
   if (isCounting) {
     return;
@@ -87,30 +76,44 @@ const stop = () => {
 
 // updating counter
 const updateCounter = () => {
+  const message = document.querySelector(".counter");
   counterDisplay.innerHTML = `${count}`;
 
-  // when count is 0 it showed message
+  // remove message after showing and put back counting when start button click
+  message.classList.remove("message");
+  message.innerHTML = `Total Cookies: ${count}`;
+
+  // when count is 0 and less it showed message
   if (count <= 0) {
-    const message = document.querySelector(".counter");
-    message.classList.add("message");
-    message.innerHTML = "Oop, Not enough fund!!";
+    toggleBuyBtn(true);
+    if (message) {
+      message.classList.add("message");
+      message.innerHTML = "Oop, Not enough fund!!";
+    }
+  } else {
+    toggleBuyBtn(false);
   }
 
   // add animation every count to 20
+  if (count % 20 === 0) {
+    const handleJump = document.querySelector(".cookieImg");
+    handleJump.classList.add("jumping");
+    handleJump.addEventListener(
+      "animationend",
+      () => {
+        handleJump.classList.remove("jumping");
+      },
+      { once: true }
+    );
+  }
+};
 
-  setTimeout(() => {
-    if (count % 20 === 0) {
-      const handleJump = document.querySelector(".cookieImg");
-      handleJump.classList.add("jumping");
-      handleJump.addEventListener(
-        "animationend",
-        () => {
-          handleJump.classList.remove("jumping");
-        },
-        { once: true }
-      );
-    }
-  }, 500);
+// disabled buy buttons once total count is 0
+const toggleBuyBtn = (isDisable) => {
+  const buyButtons = document.querySelectorAll(".buyBtn");
+  buyButtons.forEach((button) => {
+    button.disabled = isDisable;
+  });
 };
 
 // get storeData
@@ -178,7 +181,7 @@ handleClick.addEventListener("click", (e) => {
     const selectedItem = storeData[category][itemIndex];
     console.log(selectedItem);
 
-    if (selectedItem.quantity > 0) {
+    if (selectedItem.quantity > 0 && count > 0) {
       selectedItem.quantity--; // decrement the quantity of selected item
 
       const myCookieItem = storeData["Mine"][0]; // get the correct items
@@ -233,6 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const localCount = localStorage.getItem("count");
   count = localCount ? JSON.parse(localCount) : 0;
   document.getElementById("counter").textContent = count;
+  toggleBuyBtn();
+  // updateCounter();
 });
 
 // callback start, stop, and reset function when the button click

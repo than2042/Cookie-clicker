@@ -72,8 +72,7 @@ ul li a.active {
 .cookieContainer {
   width: 100vw;
   height: 100%;
-  margin-top: 0.7rem;
-  padding: 0.7rem 4rem;
+  padding: 0 4rem;
   display: flex;
   flex-direction: row;
   gap: 5rem;
@@ -82,7 +81,7 @@ ul li a.active {
 #cookie {
   width: 35vw;
   margin-left: 1em;
-  padding: 0 2rem;
+  padding: 1.2rem 2.5rem;
 }
 
 .cookieImg {
@@ -109,7 +108,6 @@ button:nth-child(1) {
   background: #00b4d8;
   border: #00b4d8;
 }
-
 button:nth-child(1):hover {
   background: #0062d9;
   border: #0062d9;
@@ -148,6 +146,7 @@ button:nth-child(3):hover {
   justify-content: flex-start;
   align-items: center;
   font-size: 1.3rem;
+  /* padding: 1rem; */
 }
 .message {
   color: #ef476f;
@@ -159,12 +158,14 @@ span {
 
 #cookieStore {
   width: 50%;
+  padding-top: 0.9rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #aceaee;
-  border-radius: 10px 10px 20px 276px;
+  border-radius: 20px 20px 20px 289px;
   transition: background-color 0.7s ease;
+  opacity: 1;
 }
 .headerRow {
   display: flex;
