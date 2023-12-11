@@ -59,7 +59,6 @@ const start = () => {
   if (isCounting) {
     return;
   }
-  count++;
   interval = setInterval(() => {
     count++;
     updateCounter();
